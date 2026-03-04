@@ -12,14 +12,15 @@ sudo apt-get update && sudo apt-get upgrade -y
 # Install standard dependencies required for OpenCV, building, and running python
 echo "Installing dependencies..."
 sudo apt-get install -y python3-pip python3-venv python3-dev \
+    python3-opencv python3-numpy \
     libglib2.0-0 libsm6 libxext6 libxrender-dev \
     libavcodec-dev libavformat-dev libswscale-dev \
     libgtk2.0-dev libjpeg-dev libpng-dev
 
 # Set up Python virtual environment (Required on modern Pi OS like Bookworm/Ubuntu or for Python 3.13)
-# If python3 doesn't point to 3.13 on your Pi yet, you can replace python3 with python3.13
+# Creating the virtual environment with system-site-packages ensures it can access the apt-installed OpenCV/NumPy
 echo "Creating Python virtual environment..."
-python3 -m venv venv
+python3 -m venv --system-site-packages venv
 source venv/bin/activate
 
 # Upgrade pip
@@ -30,10 +31,10 @@ pip install --upgrade pip
 echo "Installing PyTorch..."
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 
-# Install OpenCV and other required libraries
-echo "Installing OpenCV, Flask, Pillow, and YOLOv5 requirements..."
-# OpenCV headless is heavily recommended on RPi to avoid X11 graphical library issues over SSH
-pip install "opencv-python-headless<=4.8.1.78" numpy Pillow flask requests pandas pyyaml tqdm matplotlib seaborn
+# Install tracking, web, and YOLOv5 requirements
+# We omit numpy and opencv here since they are installed via apt-get and accessible via --system-site-packages
+echo "Installing Flask, Pillow, and YOLOv5 requirements..."
+pip install Pillow flask requests pandas pyyaml tqdm matplotlib seaborn
 
 echo "============================================================"
 echo " Setup complete!                                              "
