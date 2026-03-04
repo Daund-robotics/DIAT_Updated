@@ -27,9 +27,12 @@ source venv/bin/activate
 echo "Upgrading pip..."
 pip install --upgrade pip
 
-# Install PyTorch for CPU (Raspberry Pi is ARM/CPU based)
+# Install PyTorch for Raspberry Pi (ARM architecture)
+# We remove the --index-url since the default PyPi now has proper aarch64 wheels for PyTorch 2.x
+# The previous --index-url (download.pytorch.org) often serves x86-optimised wheels causing Illegal Instructions
 echo "Installing PyTorch..."
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+pip install setuptools wheel
+pip install torch torchvision torchaudio
 
 # Install tracking, web, and YOLOv5 requirements
 # We install numpy<2 explicitly because OpenCV 4.x wheels/apt packages crash with numpy 2.x
