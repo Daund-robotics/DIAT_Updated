@@ -116,5 +116,19 @@ def status():
     return jsonify({"warning": warning_state})
 
 if __name__ == "__main__":
+    # Get local IP to display the correct URL
+    import socket
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        local_ip = s.getsockname()[0]
+        s.close()
+    except Exception:
+        local_ip = "127.0.0.1"
+        
+    print("\n" + "="*60)
+    print(f"  SYSTEM READY: Open your browser to -> http://{local_ip}:5000  ")
+    print("="*60 + "\n")
+
     # Removed debug=True for Pi 4 to save memory, binding to 0.0.0.0 to enable access from the Pi's local network IP
     app.run(host='0.0.0.0', port=5000, debug=False, use_reloader=False)
