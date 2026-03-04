@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Tracking Protocol</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="overlay-grid"></div>
+    <div class="container">
+        <header class="header">
+            <h1>AERIAL SURVEILLANCE & DRONE DETECTION SYSTEM</h1>
+            <div class="status-badge" id="system-status">SYSTEM ONLINE</div>
+        </header>
+        
+        <main class="dashboard">
+            <!-- Left Side: Camera Feed -->
+            <section class="video-panel widget">
+                <div class="widget-header">
+                    <h2>LIVE FEED <span>// SECURE STREAM</span></h2>
+                </div>
+                <div class="video-container">
+                    <img src="{{ url_for('video_feed') }}" alt="Camera Feed" id="video-feed">
+                    <div class="scanner-line"></div>
+                </div>
+            </section>
+
+            <!-- Right Side: Dashboard / Warnings -->
+            <section class="info-panel widget">
+                <div class="widget-header">
+                    <h2>ANALYSIS ENGINE</h2>
+                </div>
+                
+                <div class="alert-box" id="warning-box">
+                    <div class="alert-icon">⚠️</div>
+                    <div class="alert-content">
+                        <h3>RESTRICTED AREA BREACH</h3>
+                        <p>Unauthorized aerial vehicle detected within security perimeter. Immediate response protocol engaged.</p>
+                    </div>
+                </div>
+
+                <div class="stats-box">
+                    <div class="stat">
+                        <span class="label">THREAT LEVEL</span>
+                        <span class="value" id="threat-level">NOMINAL</span>
+                    </div>
+                    <div class="stat">
+                        <span class="label">DETECTION CONFIDENCE</span>
+                        <span class="value">AWAITING TARGET</span>
+                    </div>
+                    <div class="stat">
+                        <span class="label">PERIMETER SENSORS</span>
+                        <span class="value success">ACTIVE</span>
+                    </div>
+                </div>
+                
+                <div class="log-console">
+                    <h3>SYSTEM LOGS</h3>
+                    <ul id="log-list">
+                        <li><span class="time">[INIT]</span> <span>System Initialization complete.</span></li>
+                        <li><span class="time">[SENSOR]</span> <span>Camera feed requested...</span></li>
+                        <li><span class="time">[AI_MODULE]</span> <span>YOLOv5 Engine warming up.</span></li>
+                    </ul>
+                </div>
+
+            </section>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
