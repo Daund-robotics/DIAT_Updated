@@ -32,8 +32,9 @@ echo "Installing PyTorch..."
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 
 # Install tracking, web, and YOLOv5 requirements
-# We omit numpy and opencv here since they are installed via apt-get and accessible via --system-site-packages
+# We install numpy<2 explicitly because OpenCV 4.x wheels/apt packages crash with numpy 2.x
 echo "Installing Flask, Pillow, and YOLOv5 requirements..."
+pip install "numpy<2"
 pip install Pillow flask requests pandas pyyaml tqdm matplotlib seaborn
 
 echo "============================================================"
